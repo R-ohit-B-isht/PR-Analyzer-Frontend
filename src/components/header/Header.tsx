@@ -3,12 +3,14 @@ import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import { HiOutlineMenuAlt3 } from 'react-icons/hi';
+import Dropdown from '../dropdown/Dropdown';
+import UpdatePRModal from '../modal/UpdatePRModal';
 
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
       <h2>
-        React<span>Starter</span>.
+        PR<span>Analyzer</span>.
       </h2>
     </Link>
   </div>
@@ -23,6 +25,7 @@ const activeLink = ({ isActive }: ActiveLinkProps) =>
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -30,7 +33,27 @@ const Header = () => {
   const hideMenu = () => {
     setShowMenu(false);
   };
+  const handleUpdateRepo = () => {
+    setIsModalOpen(true);
+  };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSubmitRepo = async (name: string, url: string) => {
+    try {
+      const backendUrl = 'http://localhost:8080';
+      const response = await axios.post(`${backendUrl}/repositories`, { name, url });
+      setRepositories([...repositories, response.data]);
+      setIsModalOpen(false);
+      toast.success('Repository added successfully');
+      onAddRepo(); // Call the onAddRepo prop function
+    } catch (error) {
+      console.error('Error adding repository:', error);
+      toast.error('Failed to add repository');
+    }
+  };
   return (
     <header>
       <div className={styles.header}>
@@ -67,21 +90,17 @@ const Header = () => {
             </li>
           </ul>
 
-          <div className={styles['header-right']} onClick={hideMenu}>
-            <span className={styles.links}>
-              <NavLink to="/login" className={activeLink}>
-                Login
-              </NavLink>
-              <NavLink to="/register" className={activeLink}>
-                Register
-              </NavLink>
-            </span>
-            <Link to="/">
-              <button className="--btn --btn-primary">Get Started</button>
-            </Link>
-          </div>
-        </nav>
 
+        </nav>
+        <Dropdown onAddRepo={() => {/* Add repository logic */}} />
+        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-30" type="button" onClick={handleUpdateRepo}>
+              Add PR
+        </button>
+      <UpdatePRModal
+      isOpen={isModalOpen}
+      onClose={handleCloseModal}
+      onSubmit={handleSubmitRepo}
+      ></UpdatePRModal>
         <div className={styles['menu-icon']}>
           <HiOutlineMenuAlt3 size={28} onClick={toggleMenu} />
         </div>

@@ -1,29 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.scss';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useRepoContext } from '../../context/RepoContext';
+import PRList from '../../components/PRList/PRList'
 
-interface Props {
-  name: string;
+interface PullRequest {
+  ID: string;
+  PRId: string;
+  Title: string;
+  Description: string;
+  Author: string;
+  CreatedAt: string;
+  Status: string;
 }
 
-const Home: React.FC<Props> = () => {
-  const { name } = useSelector(
-    (state: { data: { name: string } }) => state.data
-  );
+interface RepositoryData {
+  name: string;
+  url: string;
+  lastProcessedDate: string;
+  pullRequests: string[];
+}
+
+const Home: React.FC = () => {
+  const { selectedRepo } = useRepoContext();
+  const [repositoryData, setRepositoryData] = useState<RepositoryData | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchRepositoryData = async () => {
+      if (selectedRepo) {
+        setLoading(true);
+        try {
+          const response = await axios.get<RepositoryData>(`http://localhost:8080/repositories/${selectedRepo.ID}`);
+          setRepositoryData(response.data);
+        } catch (error) {
+          console.error('Error fetching repository data:', error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchRepositoryData();
+  }, [selectedRepo]);
+
 
   return (
     <div className="home">
       <div className="container">
-        <h2>Home Page</h2>
-        <p>
-          Welcome to the <b>Home</b> page
-        </p>
-        <p>
-          This page has <b>Redux Toolkit</b> set up.
-        </p>
-        <p>
-          The name: <b>{name}</b> is stored in the dataSlice
-        </p>
+        {selectedRepo && repositoryData && (
+          <div>
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+
+              </>
+            )}
+          </div>
+        )}
+      <PRList />
       </div>
     </div>
   );
