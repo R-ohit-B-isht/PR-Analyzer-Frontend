@@ -47,11 +47,11 @@ function PRList() {
         <div className="overflow-x-auto">
             <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-    <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl md:mb-8">{selectedRepo?.Name}: Pull Requests</h2>
     <div className="gap-8 lg:flex">
       <div className="w-full">
+      <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl md:mb-8">{selectedRepo?.Name}: Pull Requests</h2>
         <div className="mb-4 items-center justify-between md:flex md:space-x-4">
-          <form className="flex items-center max-w-sm mx-auto w-full flex-1 md:mr-4 md:max-w-md">
+          <form className="flex items-center w-full">
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
