@@ -3,6 +3,8 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 interface Repository {
   ID: string;
   Name: string;
+  url: string;
+  PullRequests: string[];
 }
 
 interface RepoContextType {

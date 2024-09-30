@@ -52,7 +52,7 @@ const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose, onSu
         <form onSubmit={handleSubmit} className={styles.modalBody}>
           {error && <div className={styles.error}>{error}</div>}
           <div className={styles.formGroup}>
-                <label for="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Date</label>
+                <label className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Select Date</label>
                 <Datepicker onSelectedDateChanged={handleStartDateChange} />
                 <span className="hidden text-gray-500 md:mx-4 md:flex">to</span>
                 <Datepicker onSelectedDateChanged={handleEndDateChange} />
