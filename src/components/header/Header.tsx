@@ -56,6 +56,7 @@ const Header = () => {
   };
   return (
     <header>
+
       <div className={styles.header}>
         <span className={styles.logoHeader}>{logo}</span>
 
@@ -109,6 +110,7 @@ const Header = () => {
         <div className={styles['menu-icon']}>
           <HiOutlineMenuAlt3 size={28} onClick={toggleMenu} />
         </div>
+
       </div>
     </header>
   );
