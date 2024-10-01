@@ -15,7 +15,25 @@ function PRList() {
     const [pullRequests, setPullRequests] = useState<PullRequest[]>([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [searchText, setSearchText] = useState('');
     const pageSize = 10;
+
+    const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (selectedRepo) {
+            try {
+                const response = await searchPullRequests(selectedRepo.ID, {
+                    searchText,
+                    page: pageNumber,
+                    pageSize: pageSize
+                });
+                setPullRequests(response.data);
+                setTotalPages(Math.ceil(response.total / pageSize));
+            } catch (error) {
+                console.error('Error searching pull requests:', error);
+            }
+        }
+    };
 
     useEffect(() => {
         const fetchPullRequests = async () => {
@@ -23,17 +41,17 @@ function PRList() {
                 try {
                     const response = await axios.get<PullRequest[]>(`http://localhost:8080/pullrequests`, {
                         params: {
-                            id: selectedRepo.ID, // Use the selectedRepo.ID from the context
+                            id: selectedRepo.ID,
                             pageNumber: pageNumber,
                             pageSize: pageSize
                         }
                     });
                     setPullRequests(response.data);
                     setTotalPages(Math.ceil(selectedRepo.PullRequests.length / pageSize));
-                    console.log('Fetched pull requests:', response.data); // Added for debugging
-                    console.log('Current Repo:', selectedRepo); // Added for debugging
-                    console.log('Number of pull requests:', selectedRepo.PullRequests.length); // Added to verify the length of fetched data
-                    console.log('Current Page Number:', pageNumber); // Added to verify the current page number
+                    console.log('Fetched pull requests:', response.data);
+                    console.log('Current Repo:', selectedRepo);
+                    console.log('Number of pull requests:', selectedRepo.PullRequests.length);
+                    console.log('Current Page Number:', pageNumber);
                 } catch (error) {
                     console.error('Error fetching pull requests:', error);
                 }
@@ -53,7 +71,7 @@ function PRList() {
       <div className="w-full">
       <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl md:mb-8">{selectedRepo?.Name}: Pull Requests</h2>
         <div className="mb-4 items-center justify-between md:flex md:space-x-4">
-          <form className="flex items-center w-full">
+          <form className="flex items-center w-full" onSubmit={handleSearch}>
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -61,7 +79,15 @@ function PRList() {
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                 </svg>
               </div>
-              <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search branch name..." required />
+              <input
+                type="text"
+                id="simple-search"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search pull requests..."
+                required
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
             </div>
             <button type="submit" className="p-2.5 ms-2 text-lg font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -298,8 +324,12 @@ function PRList() {
           <p className="mb-3.5 text-gray-900 dark:text-white"><span className="font-medium text-primary-700 dark:text-primary-500">@bonniegr</span>, are you sure you want to delete this order from your account?</p>
           <p className="mb-4 text-gray-500 dark:text-gray-300">This action cannot be undone.</p>
           <div className="flex items-center justify-center space-x-4">
-            <button data-modal-toggle="deleteOrderModal2" type="button" className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-lg font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600">No, cancel</button>
-            <button type="submit" className="rounded-lg bg-red-700 px-3 py-2 text-center text-lg font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Yes, delete</button>
+            <button data-modal-toggle="deleteOrderModal2" type="button" className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-lg font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:z-10 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:border-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-600">
+              No, cancel
+            </button>
+            <button data-modal-toggle="deleteOrderModal2" type="button" className="rounded-lg bg-red-600 px-3 py-2 text-center text-lg font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+              Yes, I'm sure
+            </button>
           </div>
         </div>
       </div>
