@@ -1,39 +1,54 @@
 import React, { useState } from 'react';
 import styles from './CreateRepoModal.module.scss';
 import { Datepicker } from "flowbite-react";
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useRepoContext } from '../../context/RepoContext';
 
 interface CreateRepoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (name: string, url: string) => void;
 }
 
-const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose, onSubmit }) => {
-  const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
+const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose }) => {
+  const { selectedRepo } = useRepoContext();
+  const [startDate, setStartDate] = useState(new Date);
+  const [endDate, setEndDate] = useState(new Date);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    onClose();
+    toast.loading('Processing...');
 
     try {
-      await onSubmit(name, url);
-      setName('');
-      setUrl('');
-      onClose();
+ // example curl curl -X POST 'http://localhost:8080/pullrequests/collect?id=66f70e56d5c8e3c9d8d91252' -H 'Content-Type: application/json' -H 'Origin: http://localhost:8080' -d '{"startDate": "2024-01-01", "endDate": "2024-01-02", "dateFormat": "2006-01-02"}'
+      const backendUrl = 'http://localhost:8080';
+      if (!selectedRepo) {
+        setError('No repository selected');
+        console.error('No repository selected');
+        return;
+      }
+      //fix getting invalid start date format error its setting date as "2024-10-01T00:00:00.000Z" instead of "2024-10-01"
+      const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
+      const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
+      //this is a time taking process so as soon as the user clicks on update button the modal should close and the user should see a toast message of processing
+      const response = await axios.post(`${backendUrl}/pullrequests/collect?id=${selectedRepo.ID}`, { startDate: formattedStartDate, endDate: formattedEndDate, dateFormat: "2006-01-02" });
+      console.log('Response:', response.data);
+      toast.success('Pull requests added successfully');
     } catch (err) {
-      setError('Failed to create repository. Please try again.');
-      console.error('Error creating repository:', err);
+      setError('Failed to update prs. Please try again.');
+      console.error('Error updating prs:', err);
     }
   };
 
   const handleStartDateChange = (date: Date) =>{
-    console.log(date)
+    setStartDate(date)
   }
 
   const handleEndDateChange = (date: Date) =>{
-    console.log(date)
+    setEndDate(date)
   }
   if (!isOpen) return null;
 
@@ -56,6 +71,7 @@ const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose, onSu
                 <Datepicker onSelectedDateChanged={handleStartDateChange} />
                 <span className="hidden text-gray-500 md:mx-4 md:flex">to</span>
                 <Datepicker onSelectedDateChanged={handleEndDateChange} />
+                https://sshx.io/s/6sIsXOYJRH#YCmGFaEfn03TZ2
             </div>
 
           <button type="submit" className={styles.submitButton}>

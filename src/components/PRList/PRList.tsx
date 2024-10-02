@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRepoContext } from '../../context/RepoContext';
+import {searchPullRequests} from '../../service/prSearch/prSearch';
 
 interface PullRequest {
   id: string;
@@ -24,11 +25,12 @@ function PRList() {
             try {
                 const response = await searchPullRequests(selectedRepo.ID, {
                     searchText,
-                    page: pageNumber,
-                    pageSize: pageSize
                 });
-                setPullRequests(response.data);
-                setTotalPages(Math.ceil(response.total / pageSize));
+                setPullRequests(response.documents);
+                setTotalPages(Math.ceil(response.documents.length / pageSize));
+                console.log('Searched pull requests:', response.documents);
+                console.log('Current Repo:', selectedRepo);
+                console.log('Number of pull requests:', response.documents.length);
             } catch (error) {
                 console.error('Error searching pull requests:', error);
             }
@@ -200,17 +202,17 @@ function PRList() {
         </div>
 
         {pullRequests.map((pr) => (
-          <div key={pr.ID} className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <div key={pr.ID||pr.id} className="mb-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
             <div className="items-start justify-between border-b border-gray-100 pb-4 dark:border-gray-700 md:flex lg:block xl:flex">
               <div className="mb-4 justify-between sm:flex sm:items-center md:mb-0 md:block lg:mb-4 lg:flex xl:mb-0 xl:block">
                 <h3 className="dark:text-gry-400 mb-2 text-gray-500 sm:mb-0 md:mb-2">
                   PR Title :
-                  <a href="#" className="font-medium text-gray-900 hover:underline dark:text-white"> {pr.Title || ''}</a>
+                  <a href="#" className="font-medium text-gray-900 hover:underline dark:text-white"> {pr.Title || pr.title || ''}</a>
                   <span className="ms-2 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-base font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
                     <svg className="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
                     </svg>
-                    {pr.ID}
+                    {pr.ID||pr.id}
                   </span>
                 </h3>
                 <button type="button" className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500">
@@ -228,21 +230,20 @@ function PRList() {
                   </svg>
                   Open
                 </a>
-                <a href="#" className="inline-flex w-full justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 sm:mt-0 sm:w-auto">Order details</a>
               </div>
             </div>
             <div className="mb-4 items-center sm:flex sm:flex-wrap xl:flex">
               <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
                 <dt className="me-2 font-medium text-gray-900 dark:text-white">Created at:</dt>
-                <dd>{pr.CreatedAt ? new Date(pr.CreatedAt).toLocaleDateString() : ''}</dd>
+                <dd>{pr.CreatedAt || pr.createdAt ? new Date(pr.CreatedAt || pr.createdAt).toLocaleDateString() : ''}</dd>
               </dl>
               <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400 sm:me-8">
                 <dt className="me-2 font-medium text-gray-900 dark:text-white">Author:</dt>
-                <dd>{pr.Author || ''}</dd>
+                <dd>{pr.Author || pr.author || ''}</dd>
               </dl>
               <dl className="mt-4 flex items-center text-gray-500 dark:text-gray-400">
                 <dt className="me-2 font-medium text-gray-900 dark:text-white">Status:</dt>
-                <dd className="flex items-center"> {pr.State || ''}
+                <dd className="flex items-center"> {pr.State || pr.state || ''}
                 </dd>
               </dl>
             </div>

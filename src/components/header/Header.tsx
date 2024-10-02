@@ -41,19 +41,6 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmitRepo = async (name: string, url: string) => {
-    try {
-      const backendUrl = 'http://localhost:8080';
-      const response = await axios.post(`${backendUrl}/repositories`, { name, url });
-      setRepositories([...repositories, response.data]);
-      setIsModalOpen(false);
-      toast.success('Repository added successfully');
-      onAddRepo(); // Call the onAddRepo prop function
-    } catch (error) {
-      console.error('Error adding repository:', error);
-      toast.error('Failed to add repository');
-    }
-  };
   return (
     <header>
 
@@ -99,7 +86,6 @@ const Header = () => {
                 <UpdatePRModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                onSubmit={handleSubmitRepo}
                 ></UpdatePRModal>
               </li>
           </ul>
@@ -117,3 +103,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

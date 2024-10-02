@@ -110,7 +110,7 @@ const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose, onSu
                 </div>
                 <div className="flex items-center justify-center space-x-4">
                     <button type="submit" className="text-blue-600 inline-flex items-center hover:text-white border border-blue-600 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-600 dark:focus:ring-blue-900">
-                        Add Repo
+                        Add Repo 
                     </button>
                 </div>
             </form>
