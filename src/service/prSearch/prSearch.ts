@@ -7,7 +7,7 @@ interface SearchParams {
 export const searchPullRequests = async (id: string, params: SearchParams) => {
   try {
     const response = await axios.post(
-      `http://localhost:8080/pullrequests/search?id=${id}`,
+      `http://localhost:8080/pullrequests-search?id=${id}`,
       params
     );
     return response.data;

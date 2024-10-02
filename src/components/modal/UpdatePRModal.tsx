@@ -34,7 +34,7 @@ const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose }) =>
       const formattedStartDate = new Date(startDate).toISOString().split('T')[0];
       const formattedEndDate = new Date(endDate).toISOString().split('T')[0];
       //this is a time taking process so as soon as the user clicks on update button the modal should close and the user should see a toast message of processing
-      const response = await axios.post(`${backendUrl}/pullrequests/collect?id=${selectedRepo.ID}`, { startDate: formattedStartDate, endDate: formattedEndDate, dateFormat: "2006-01-02" });
+      const response = await axios.post(`${backendUrl}/pullrequests-collect?id=${selectedRepo.ID}`, { startDate: formattedStartDate, endDate: formattedEndDate, dateFormat: "2006-01-02" });
       console.log('Response:', response.data);
       toast.success('Pull requests added successfully');
     } catch (err) {

@@ -215,12 +215,6 @@ function PRList() {
                     {pr.ID||pr.id}
                   </span>
                 </h3>
-                <button type="button" className="inline-flex items-center font-medium text-primary-700 hover:underline dark:text-primary-500">
-                  <svg className="me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4" />
-                  </svg>
-                  Download invoice
-                </button>
               </div>
               <div className="space-y-4 sm:flex sm:space-x-4 sm:space-y-0">
                 <button id="deleteOrderButton4" data-modal-target="deleteOrderModal2" data-modal-toggle="deleteOrderModal2" type="button" className="w-full rounded-lg bg-blue-700 px-3 py-2 text-lg font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 sm:w-auto">Update</button>
