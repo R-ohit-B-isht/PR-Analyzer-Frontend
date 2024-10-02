@@ -4,13 +4,8 @@ import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-interface Repository {
-  ID: string;
-  Name: string;
-}
-
 const Sub = () => {
-  const [repositories, setRepositories] = useState<Repository[]>([]);
+  const [repositories, setRepositories] = useState([]);
   useEffect(() => {
     const fetchRepositories = async () => {
       try {

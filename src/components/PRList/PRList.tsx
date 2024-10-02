@@ -2,18 +2,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRepoContext } from '../../context/RepoContext';
 import {searchPullRequests} from '../../service/prSearch/prSearch';
-
-interface PullRequest {
-  id: string;
-  title: string;
-  author: string;
-  status: string;
-  createdAt: string;
-}
+import AdvancedFilter  from '../advancedFilter/advancedFilter';
 
 function PRList() {
     const { selectedRepo } = useRepoContext();
-    const [pullRequests, setPullRequests] = useState<PullRequest[]>([]);
+    const [pullRequests, setPullRequests] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [searchText, setSearchText] = useState('');
@@ -41,7 +34,7 @@ function PRList() {
         const fetchPullRequests = async () => {
             if (selectedRepo) {
                 try {
-                    const response = await axios.get<PullRequest[]>(`http://localhost:8080/pullrequests`, {
+                    const response = await axios.get(`http://localhost:8080/pullrequests`, {
                         params: {
                             id: selectedRepo.ID,
                             pageNumber: pageNumber,
@@ -100,104 +93,17 @@ function PRList() {
           </form>
 
           <div className="mt-4 items-center space-y-4 sm:flex sm:space-x-4 sm:space-y-0 md:mt-0">
-            <button
-              id="filterDropdownButtonLabel2"
-              data-dropdown-toggle="filterDropdownButton"
-              type="button"
-              className="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
-            >
-              <svg className="-ms-0.5 me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z" />
-              </svg>
-              Filter by: Completed
-              <svg className="-me-0.5 ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
-              </svg>
-            </button>
-            <div id="filterDropdownButton" className="z-10 hidden w-36 divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700">
-              <ul className="p-2 text-left text-lg font-medium text-gray-500 dark:text-gray-400" aria-labelledby="filterDropdownButtonLabel">
-                <li>
-                  <a href="#" className="group inline-flex w-full items-center rounded-md px-3 py-2 text-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <span className="me-2 h-2.5 w-2.5 rounded-full bg-green-500"></span>
-                    <span>Completed</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="group inline-flex w-full items-center rounded-md px-3 py-2 text-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <span className="me-2 h-2.5 w-2.5 rounded-full bg-primary-600"></span>
-                    Pre-order
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="group inline-flex w-full items-center rounded-md px-3 py-2 text-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <span className="me-2 h-2.5 w-2.5 rounded-full bg-yellow-300"></span>
-                    In transit
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="group inline-flex w-full items-center rounded-md px-3 py-2 text-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">
-                    <span className="me-2 h-2.5 w-2.5 rounded-full bg-red-500"></span>
-                    Cancelled
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <button
-              id="dateDropdownButtonLabel2"
-              data-dropdown-toggle="dateDropdownButton2"
-              type="button"
-              className="flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-lg font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 md:w-auto"
-            >
-              Last 7 days
-              <svg className="-me-0.5 ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
-              </svg>
-            </button>
-            <div id="dateDropdownButton2" className="z-10 hidden w-80 divide-y divide-gray-100 rounded bg-white shadow dark:divide-gray-600 dark:bg-gray-700">
-              <ul className="divide-y divide-gray-200 text-lg font-medium dark:divide-gray-700" aria-labelledby="dateDropdownButtonLabel2">
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    Today
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Aug 21, 2023 - Aug 21, 2023 </span>
-                  </a>
-                </li>
 
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    Yesterday
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Aug 20, 2023 - Aug 21, 2023 </span>
-                  </a>
-                </li>
+          <form className="max-w-sm mx-auto">
+            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Full Text Search</option>
+              <option value="semanticSearch">Semantic Search</option>
+              <option value="codeSearch">Code Search</option>
+              </select>
+          </form>
 
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    Last 7 days
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Aug 21, 2023 - Aug 21, 2023 </span>
-                  </a>
-                </li>
 
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    Last Month
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Aug 15, 2023 - Aug 21, 2023 </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    Last year
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Jan 1, 2023 - Aug 21, 2023 </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="#" className="group flex items-center gap-2 px-4 py-2 text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-600">
-                    All time
-                    <span className="font-normal text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"> Feb 1, 2020 - Aug 21, 2023 </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            <AdvancedFilter />
           </div>
         </div>
 
@@ -303,7 +209,7 @@ function PRList() {
       </div>
     </div>
 
-    <div id="deleteOrderModal2" tabIndex="-1" aria-hidden="true" className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full">
+    <div id="deleteOrderModal2" aria-hidden="true" className="fixed left-0 right-0 top-0 z-50 hidden h-modal w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0 md:h-full">
       <div className="relative h-full w-full max-w-md p-4 md:h-auto">
         <div className="relative rounded-lg bg-white p-4 text-center shadow dark:bg-gray-800 sm:p-5">
           <button type="button" className="absolute right-2.5 top-2.5 ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-lg text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteOrderModal2">

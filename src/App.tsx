@@ -14,7 +14,7 @@ const App = () => {
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
         <Header />
         <Routes>
-          <Route path="/" element={<Home name="PR analyzer" />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
