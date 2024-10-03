@@ -4,7 +4,7 @@ import { Datepicker } from "flowbite-react";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRepoContext } from '../../context/RepoContext';
-
+import 'dotenv/config'
 interface CreateRepoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,7 +24,7 @@ const CreateRepoModal: React.FC<CreateRepoModalProps> = ({ isOpen, onClose }) =>
 
     try {
  // example curl curl -X POST 'http://localhost:8080/pullrequests/collect?id=66f70e56d5c8e3c9d8d91252' -H 'Content-Type: application/json' -H 'Origin: http://localhost:8080' -d '{"startDate": "2024-01-01", "endDate": "2024-01-02", "dateFormat": "2006-01-02"}'
-      const backendUrl = 'http://localhost:8080';
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
       if (!selectedRepo) {
         setError('No repository selected');
         console.error('No repository selected');

@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import styles from './Dropdown.module.scss';
 import CreateRepoModal from '../modal/CreateRepoModal';
 import { useRepoContext } from '../../context/RepoContext';
-
+import 'dotenv/config'
 interface DropdownProps {
   onAddRepo: () => void;
 }
@@ -18,7 +18,7 @@ const Dropdown: React.FC<DropdownProps> = ({ onAddRepo }) => {
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
-        const backendUrl = 'http://localhost:8080';
+        const backendUrl = pr;
         const response = await axios.get(`${backendUrl}/repositories`);
         setRepositories(response.data);
         console.log('Fetched repositories:', response.data); // Added console.log for debugging
@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({ onAddRepo }) => {
 
   const handleSubmitRepo = async (name: string, url: string) => {
     try {
-      const backendUrl = 'http://localhost:8080';
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
       const response = await axios.post(`${backendUrl}/repositories`, { name, url });
       setRepositories([...repositories, response.data]);
       setIsModalOpen(false);

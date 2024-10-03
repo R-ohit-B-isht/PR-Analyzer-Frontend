@@ -3,13 +3,14 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import 'dotenv/config'
 
 const Sub = () => {
   const [repositories, setRepositories] = useState([]);
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
-        const backendUrl = 'http://localhost:8080';
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
         const response = await axios.get(`${backendUrl}/repositories`);
         setRepositories(response.data);
         console.log('Fetched repositories:', response.data); // Added console.log for debugging
