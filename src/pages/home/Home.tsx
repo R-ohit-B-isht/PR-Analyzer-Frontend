@@ -3,7 +3,7 @@ import './Home.scss';
 import axios from 'axios';
 import { useRepoContext } from '../../context/RepoContext';
 import PRList from '../../components/PRList/PRList'
-import 'dotenv/config'
+
 
 interface RepositoryData {
   name: string;
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       if (selectedRepo) {
         setLoading(true);
         try {
-          const backendUrl = process.env.REACT_APP_BACKEND_URL;
+          const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
           const response = await axios.get<RepositoryData>(`${backendUrl}/repositories/${selectedRepo.ID}`);
           setRepositoryData(response.data);
         } catch (error) {

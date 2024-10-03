@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRepoContext } from '../../context/RepoContext';
 import {searchPullRequests} from '../../service/prSearch/prSearch';
 import AdvancedFilter  from '../advancedFilter/advancedFilter';
-import 'dotenv/config'
+
 
 function PRList() {
     const { selectedRepo } = useRepoContext();
@@ -35,7 +35,7 @@ function PRList() {
         const fetchPullRequests = async () => {
             if (selectedRepo) {
                 try {
-                    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+                    const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
                     const response = await axios.get(`${backendUrl}/pullrequests`, {
                         params: {
                             id: selectedRepo.ID,
