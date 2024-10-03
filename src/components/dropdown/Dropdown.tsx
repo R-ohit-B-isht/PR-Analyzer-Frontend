@@ -18,7 +18,7 @@ const Dropdown: React.FC<DropdownProps> = ({ onAddRepo }) => {
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
-        const backendUrl = pr;
+        const backendUrl = process.env.REACT_APP_BACKEND_URL;
         const response = await axios.get(`${backendUrl}/repositories`);
         setRepositories(response.data);
         console.log('Fetched repositories:', response.data); // Added console.log for debugging
