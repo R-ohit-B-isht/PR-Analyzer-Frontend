@@ -80,7 +80,7 @@ const Header = () => {
 
               <a onClick={handleSync} className="bg-green-100 hover:bg-green-200 text-green-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 inline-flex items-center justify-center" style={{cursor: 'pointer'}}>Sync</a>
 
-            <span className="text-sm font-medium text-white-700 dark:text-white"> {analysisNumber.totalPRs}/{analysisNumber.embeddingsPRs}</span>
+            <span className="text-sm font-medium text-white-700 dark:text-white"> {analysisNumber.embeddingsPRs}/{analysisNumber.totalPRs}</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
             <div className="bg-green-600 h-2.5 w-.5 rounded-full" style={{width: analysedPercentage+"%"}}></div>
