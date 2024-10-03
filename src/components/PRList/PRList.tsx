@@ -62,7 +62,7 @@ function PRList() {
 
     return (
         <div className="overflow-x-auto" >
-            <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16" style={{ position: 'fixed', left: 0, right: 0, height:'100vh' }} >
+            <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16" style={{ position: 'absolute', left: 0, right: 0, height:'100vh',overflowX:'hidden' }} >
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div className="gap-8 lg:flex">
       <div className="w-full">
@@ -154,7 +154,7 @@ function PRList() {
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
               </svg>
               <span className="sr-only">Info</span>
-              <div style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '200px' }}>
+              <div style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '200px' , wordWrap: 'break-word' }}>
                 {pr.Description || pr.description || ''}
               </div>
             </div>
