@@ -56,7 +56,7 @@ const Dropdown: React.FC<DropdownProps> = ({ onAddRepo }) => {
     }
   };
 
-  const handleSelectRepo = (repo) => {
+  const handleSelectRepo = async (repo) => {
     setSelectedRepo(repo);
     setIsOpen(false);
   };
