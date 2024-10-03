@@ -59,8 +59,8 @@ function PRList() {
     const onPageChange = (page: number) => setPageNumber(page);
 
     return (
-        <div className="overflow-x-auto" style={{ position: 'fixed', left: 0, right: 0 }}>
-            <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <div className="overflow-x-auto" >
+            <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16" style={{ position: 'fixed', left: 0, right: 0, height:'100vh' }} >
   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div className="gap-8 lg:flex">
       <div className="w-full">
