@@ -11,7 +11,7 @@ const Overlay: React.FC<OverlayProps> = ({ isOpen, onClose, pullRequest }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center ">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-6 mb-6 text-base bg-white rounded-lg border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
       <div className="bg-white rounded-lg p-6 w-full h-full overflow-y-auto flex flex-col" style={{marginTop:"40px", marginLeft:"40px", marginRight:"40px"}}>
         <button
           type="button"
