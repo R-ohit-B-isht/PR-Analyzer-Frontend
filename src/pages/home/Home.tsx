@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useRepoContext } from '../../context/RepoContext';
 import PRList from '../../components/PRList/PRList'
 
-
 interface RepositoryData {
   name: string;
   url: string;
