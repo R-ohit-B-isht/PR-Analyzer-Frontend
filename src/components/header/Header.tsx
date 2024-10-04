@@ -41,7 +41,7 @@ const Header = () => {
       const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
       const syncLevel = await axios.get(`${backendUrl}/pullrequests-syncLevel?id=${selectedRepo.ID}`);
       setAnalysisNumber(syncLevel.data);
-      setAnalysedPercentage((syncLevel.data.totalPRs/syncLevel.data.embeddingsPRs)*100);
+      setAnalysedPercentage((syncLevel.data.embeddingsPRs/syncLevel.data.totalPRs)*100);
       console.log('Fetched syncLevel:', syncLevel.data);
     }
     fetchSyncLevel();
