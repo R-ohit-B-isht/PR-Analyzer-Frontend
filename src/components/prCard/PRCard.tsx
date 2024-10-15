@@ -26,7 +26,7 @@ function PrCard({ pullRequest }) {
             <div className="flex" style={{ height: '97%' }}>
                 <div className="flex-1 pr-4">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Title: {pullRequest.Title || pullRequest.title || ''}</h3>
-                    <div className="text-gray-700 dark:text-white-300 mb-4 border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6" style={{ height: '97%' }}>
+                    <div className="text-gray-700 dark:text-white mb-4 border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6" style={{ height: '97%' }}>
                         <p className="font-semibold text-gray-900 dark:text-white">Description:</p>
                         <div style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>
                             <Markdown>{pullRequest.Description || pullRequest.description || ''}</Markdown>
@@ -46,7 +46,7 @@ function PrCard({ pullRequest }) {
                     </div>
                     <div style={{height:"94%"}}>
                         <p className="font-semibold text-gray-900 dark:text-white mb-2">Comments:</p>
-                        <ul className="text-sm text-gray-700 dark:text-gray-300 list-disc pl-5" style={{ listStyleType: 'none', height:"93%",overflow:'auto' }}>
+                        <ul className="text-sm text-gray-700 dark:text-white list-disc pl-5" style={{ listStyleType: 'none', height:"93%",overflow:'auto' }}>
                         {(pullRequest.Comments || pullRequest.comments || []).map((comment) => (
                             <li>
                                 <article className="p-6 mb-6 text-base bg-white rounded-lg border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700">
@@ -55,18 +55,18 @@ function PrCard({ pullRequest }) {
                                             <img className="mr-2 w-8 h-8 rounded-lg" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie Green" />
                                             <div>
                                                 <span className="text-sm font-semibold text-gray-900 dark:text-white">{comment.Author||comment.author||''}</span>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400"><time>{comment.CreatedAt||comment.createdAt||''}</time></p>
+                                                <p className="text-sm text-gray-500 dark:text-white"><time>{comment.CreatedAt||comment.createdAt||''}</time></p>
                                             </div>
                                         </div>
                                         <div className="flex items-center space-x-2">
-                                            <button type="button" className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
+                                            <button type="button" className="flex items-center text-sm text-gray-500 hover:underline dark:text-white font-medium">
                                                 <svg className="mr-1 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                                                     <path d="M17.947 2.053a5.209 5.209 0 0 0-3.793-1.53A6.414 6.414 0 0 0 10 2.311 6.482 6.482 0 0 0 5.824.5a5.2 5.2 0 0 0-3.8 1.521c-1.915 1.916-2.315 5.392.625 8.333l7 7a.5.5 0 0 0 .708 0l7-7a6.6 6.6 0 0 0 2.123-4.508 5.179 5.179 0 0 0-1.533-3.793Z" />
                                                 </svg>
                                                 22
                                             </button>
                                             <button id="dropdownComment3Button" data-dropdown-toggle="dropdownComment3"
-                                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                                className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-white bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                                                 type="button">
                                                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
                                                     <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
@@ -76,8 +76,8 @@ function PrCard({ pullRequest }) {
                                         </div>
                                         {/* <!-- Dropdown menu --> */}
                                         <div id="dropdownComment3"
-                                            className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                            className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-white-600">
+                                            <ul className="py-1 text-sm text-gray-700 dark:text-white-200"
                                                 aria-labelledby="dropdownComment3Button">
                                                 <li>
                                                     <a href="#"
@@ -107,11 +107,11 @@ function PrCard({ pullRequest }) {
             </div>
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex flex-wrap items-center">
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Author:</span> github-actions[bot]</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">State:</span> Closed</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Created:</span> 2024-01-01</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span> 2024-03-22</p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span> 2024-03-22</p>
+                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Author:</span> github-actions[bot]</p>
+                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">State:</span> Closed</p>
+                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Created:</span> 2024-01-01</p>
+                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span> 2024-03-22</p>
+                    <p className="text-sm text-gray-700 dark:text-white-300"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span> 2024-03-22</p>
                 </div>
             </div>
         </article>
