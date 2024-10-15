@@ -12,11 +12,11 @@ const App = () => {
     <RepoProvider>
       <>
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-        <Header style={{height: '5vh'}} />
+        <Header/>
         <Routes>
-          <Route path="/" element={<Home style={{height:'95vh'}} />} />
-          <Route path="/admin/*" element={<Admin style={{height:'95vh'}} />} />
-          <Route path="*" element={<NotFound style={{height:'95vh'}} />} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/admin/*" element={<Admin/>} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
 
       </>
