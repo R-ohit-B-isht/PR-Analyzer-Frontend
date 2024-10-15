@@ -5,7 +5,6 @@ import { searchPullRequests } from '../../service/prSearch/prSearch';
 import AdvancedFilter from '../advancedFilter/advancedFilter';
 import Overlay from '../Overlay/Overlay';
 
-
 function PRList() {
   const { selectedRepo } = useRepoContext();
   const [pullRequests, setPullRequests] = useState([]);

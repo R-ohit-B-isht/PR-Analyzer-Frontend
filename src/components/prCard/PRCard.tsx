@@ -1,4 +1,7 @@
 // The pop-up card will display important pull request details in a structured manner using flowbite components. Here's the updated ASCII diagram:
+import Markdown from 'react-markdown'
+import ReactHtmlParser from 'react-html-parser';
+import isHtml from 'is-html';
 
 // +---------------------------------------+---------------------------+
 // | Title: Improve mnemonic restoring     | Labels: [type-bug]        |
@@ -26,7 +29,7 @@ function PrCard({ pullRequest }) {
                     <div className="text-gray-700 dark:text-gray-300 mb-4 border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6" style={{ height: '97%' }}>
                         <p className="font-semibold text-gray-900 dark:text-white">Description:</p>
                         <div style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>
-                            {pullRequest.Description || pullRequest.description || ''}
+                            <Markdown>{pullRequest.Description || pullRequest.description || ''}</Markdown>
                         </div>
                     </div>
                 </div>
@@ -91,7 +94,7 @@ function PrCard({ pullRequest }) {
                                             </ul>
                                         </div>
                                     </footer>
-                                    <p className="text-gray-800 dark:text-gray-400 text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{comment.Content||comment.content||''}</p>
+                                    <p className="text-gray-800 dark:text-gray-400 text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): <Markdown>{comment.Content||comment.content||''}</Markdown> }</p>
                                     <button type="button" className="mt-4 text-sm text-gray-900 hover:underline dark:text-white font-medium">
                                         Reply
                                     </button>
