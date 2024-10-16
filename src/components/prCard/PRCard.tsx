@@ -28,8 +28,8 @@ function PrCard({ pullRequest }) {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Title: {pullRequest.Title || pullRequest.title || ''}</h3>
                     <div className="text-gray-700 dark:text-white mb-4 border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6" style={{ height: '97%' }}>
                         <p className="font-semibold text-gray-900 dark:text-white">Description:</p>
-                        <div style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>
-                            <Markdown>{pullRequest.Description || pullRequest.description || ''}</Markdown>
+                        <div className="text-gray-900 dark:text-white" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>
+                            <Markdown className="text-gray-900 dark:text-white">{pullRequest.Description || pullRequest.description || ''}</Markdown>
                         </div>
                     </div>
                 </div>
@@ -76,8 +76,8 @@ function PrCard({ pullRequest }) {
                                         </div>
                                         {/* <!-- Dropdown menu --> */}
                                         <div id="dropdownComment3"
-                                            className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-white-600">
-                                            <ul className="py-1 text-sm text-gray-700 dark:text-white-200"
+                                            className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-white">
+                                            <ul className="py-1 text-sm text-gray-700 dark:text-white"
                                                 aria-labelledby="dropdownComment3Button">
                                                 <li>
                                                     <a href="#"
@@ -94,7 +94,7 @@ function PrCard({ pullRequest }) {
                                             </ul>
                                         </div>
                                     </footer>
-                                    <p className="text-gray-800 dark:text-white-400 text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): <Markdown>{comment.Content||comment.content||''}</Markdown> }</p>
+                                    <p className="text-gray-800 dark:text-white text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): <Markdown>{comment.Content||comment.content||''}</Markdown> }</p>
                                     <button type="button" className="mt-4 text-sm text-gray-900 hover:underline dark:text-white font-medium">
                                         Reply
                                     </button>
@@ -107,11 +107,11 @@ function PrCard({ pullRequest }) {
             </div>
             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div className="flex flex-wrap items-center">
-                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Author:</span> github-actions[bot]</p>
-                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">State:</span> Closed</p>
-                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Created:</span> 2024-01-01</p>
-                    <p className="text-sm text-gray-700 dark:text-white-300 mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span> 2024-03-22</p>
-                    <p className="text-sm text-gray-700 dark:text-white-300"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span> 2024-03-22</p>
+                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Author:</span> {pullRequest.Author||pullRequest.author||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">State:</span> {pullRequest.State||pullRequest.state||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Created:</span> {pullRequest.CreatedAt||pullRequest.createdAt||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span>{pullRequest.MergedAt||pullRequest.mergedAt||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span>{pullRequest.LastUpdatedAt||pullRequest.lastUpdatedAt||''}</p>
                 </div>
             </div>
         </article>
