@@ -69,7 +69,7 @@ const Header = () => {
   }
 
   return (
-    <header style={{height: '5vh'}}>
+    <header style={{height: '7vh'}}>
 
       <div className={styles.header}>
         <span className={styles.logoHeader}>{logo}</span>

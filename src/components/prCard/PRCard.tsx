@@ -1,7 +1,7 @@
 // The pop-up card will display important pull request details in a structured manner using flowbite components. Here's the updated ASCII diagram:
 // import Markdown from 'react-markdown'
 import ReactHtmlParser from 'react-html-parser';
-import isHtml from 'is-html';
+
 // import markdownit from 'markdown-it'
 import { marked } from 'marked';
 // +---------------------------------------+---------------------------+
@@ -95,7 +95,7 @@ function PrCard({ pullRequest }) {
                                             </ul>
                                         </div>
                                     </footer>
-                                    <p className="text-gray-800 dark:text-white text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): ReactHtmlParser(marked.parse(comment.Content||comment.content||'')as string )}</p>
+                                    <p className="text-gray-800 dark:text-white text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ ReactHtmlParser(marked.parse(comment.Content||comment.content||'')as string )}</p>
                                     <button type="button" className="mt-4 text-sm text-gray-900 hover:underline dark:text-white font-medium">
                                         Reply
                                     </button>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Image from '../../assets/404-error.png';
 const NotFound = () => {
   return (
-    <div className="--center-all" style={{ minHeight: '80vh',height:'95vh' }} >
+    <div className="--center-all" style={{ minHeight: '80vh',height:'93vh' }} >
       <img src={Image} alt="404-error" />
       <br />
       <Link to={'/'}>

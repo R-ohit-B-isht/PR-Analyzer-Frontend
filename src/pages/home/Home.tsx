@@ -37,7 +37,7 @@ const Home: React.FC = () => {
 
 
   return (
-    <div className="home" style={{height:'95vh'}} >
+    <div className="home" style={{height:'93vh'}} >
       <div className="container">
         {selectedRepo && repositoryData && (
           <div>

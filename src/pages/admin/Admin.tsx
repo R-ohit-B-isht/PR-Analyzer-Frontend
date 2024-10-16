@@ -7,7 +7,7 @@ import Sub from '../../components/admin/subscription/Sub';
 
 const Admin = () => {
   return (
-    <div className={styles.admin} style={{height:'95vh'}} >
+    <div className={styles.admin} style={{height:'93vh'}} >
       <div className={styles.navbar}>
         <Sidebar />
       </div>
