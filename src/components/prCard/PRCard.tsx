@@ -1,8 +1,9 @@
 // The pop-up card will display important pull request details in a structured manner using flowbite components. Here's the updated ASCII diagram:
-import Markdown from 'react-markdown'
+// import Markdown from 'react-markdown'
 import ReactHtmlParser from 'react-html-parser';
 import isHtml from 'is-html';
-
+import markdownit from 'markdown-it'
+const md = markdownit()
 // +---------------------------------------+---------------------------+
 // | Title: Improve mnemonic restoring     | Labels: [type-bug]        |
 // | Description:                          | [area-seedPhrase]         |
@@ -29,7 +30,7 @@ function PrCard({ pullRequest }) {
                     <div className="text-gray-700 dark:text-white mb-4 border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700 p-6" style={{ height: '97%' }}>
                         <p className="font-semibold text-gray-900 dark:text-white">Description:</p>
                         <div className="text-gray-900 dark:text-white" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>
-                            <Markdown className="text-gray-900 dark:text-white">{pullRequest.Description || pullRequest.description || ''}</Markdown>
+                            {md.render(pullRequest.Description || pullRequest.description || '')}
                         </div>
                     </div>
                 </div>
@@ -94,7 +95,7 @@ function PrCard({ pullRequest }) {
                                             </ul>
                                         </div>
                                     </footer>
-                                    <p className="text-gray-800 dark:text-white text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): <Markdown>{comment.Content||comment.content||''}</Markdown> }</p>
+                                    <p className="text-gray-800 dark:text-white text-sm" style={{ whiteSpace: 'pre-wrap', overflowY: 'auto', maxHeight: '100%', wordWrap: 'break-word' }}>{ isHtml(comment.Content||comment.content)? ReactHtmlParser(comment.Content||comment.content||''): md.render(comment.Content||comment.content||'') }</p>
                                     <button type="button" className="mt-4 text-sm text-gray-900 hover:underline dark:text-white font-medium">
                                         Reply
                                     </button>
@@ -110,8 +111,8 @@ function PrCard({ pullRequest }) {
                     <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Author:</span> {pullRequest.Author||pullRequest.author||''}</p>
                     <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">State:</span> {pullRequest.State||pullRequest.state||''}</p>
                     <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Created:</span> {pullRequest.CreatedAt||pullRequest.createdAt||''}</p>
-                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span>{pullRequest.MergedAt||pullRequest.mergedAt||''}</p>
-                    <p className="text-sm text-gray-700 dark:text-white"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span>{pullRequest.LastUpdatedAt||pullRequest.lastUpdatedAt||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white mr-4"><span className="font-semibold text-gray-900 dark:text-white">Merged:</span> {pullRequest.MergedAt||pullRequest.mergedAt||''}</p>
+                    <p className="text-sm text-gray-700 dark:text-white"><span className="font-semibold text-gray-900 dark:text-white">Last Updated:</span> {pullRequest.LastUpdatedAt||pullRequest.lastUpdatedAt||''}</p>
                 </div>
             </div>
         </article>
